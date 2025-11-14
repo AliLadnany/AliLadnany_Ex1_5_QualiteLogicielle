@@ -1,0 +1,163 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package bankAccountApp;
+
+/**
+ *
+ * @author jay
+ */
+public class BankAccount {
+
+	private Person accountHolder;
+	private double balance = 0;
+	private String dateCreated;
+	private double withdrawLimit = 0;
+	private boolean success;
+	private double initMoneyAmount = 0;
+	private int accountNumber = 0;
+	private double amountWithdrawn = 0;
+
+	public BankAccount() {
+		// Person Person = new Person();
+		initMoneyAmount = 0;
+		this.withdrawLimit = 0;
+		this.balance = 0;
+		this.dateCreated = "";
+		this.accountHolder = null;
+		this.accountNumber = 0;
+	}
+
+	/**
+	 * @return the accountHolder
+	 */
+	public BankAccount(double newInitMoneyAmount, double newWithdrawlimit, String newDateCreated, Person initHolder) {
+
+		initMoneyAmount = newInitMoneyAmount;
+		balance = newInitMoneyAmount;
+		withdrawLimit = newWithdrawlimit;
+		dateCreated = newDateCreated;
+		accountNumber = 0;
+		accountHolder = initHolder;
+	}
+
+	public BankAccount(int accountNumber, double balance, double withdrawLimit, String dateCreated,
+			String accountHolder) throws Exception {
+		Person Person = new Person(accountHolder);
+		initMoneyAmount = 0;
+		this.withdrawLimit = withdrawLimit;
+		this.balance = balance;
+		this.dateCreated = dateCreated;
+		this.accountHolder = Person;
+		this.accountNumber = accountNumber;
+	}
+
+	public Person getAccountHolder() {
+		// accountHolder = acc.getAccountHolder(acc);
+
+		return accountHolder;
+	}
+
+	/**
+	 * @param accountHolder the accountHolder to set
+	 */
+	public void setAccountHolder(Person accountHolder) {
+
+		if (accountHolder != null) {
+			this.accountHolder = accountHolder;
+		}
+		// accountHolder = Person.getName() ;
+	}
+
+	/**
+	 * @return the balance
+	 */
+	public double getBalance() {
+		return balance;
+	}
+
+	/**
+	 * @param balance the balance to set
+	 */
+	private void setBalance(double balance) {
+
+		this.balance = balance;
+	}
+
+	/**
+	 * @return the dateCreated
+	 */
+	public String getDateCreated() {
+		return dateCreated;
+	}
+
+	/**
+	 * @param dateCreated the dateCreated to set
+	 */
+	private void setDateCreated(String dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	/**
+	 * @return the withdrawLimit
+	 */
+	public double getWithdrawLimit() {
+		return withdrawLimit;
+	}
+
+	/**
+	 * @param withdrawLimit the withdrawLimit to set
+	 */
+	public void setWithdrawLimit(double withdrawLimit) {
+		this.withdrawLimit = withdrawLimit;
+	}
+
+	public double getAmountWithdrawn() {
+		return amountWithdrawn;
+	}
+	
+	public void depositMoney(double depositAmount) {
+		// DECISION_POINT_MARKER 1
+		if (depositAmount >= 0) {
+			balance = balance + depositAmount;
+		}
+	}
+
+	public boolean withdrawMoney(double withdrawAmount) {
+		// DECISION_POINT_MARKER 2
+		if (withdrawAmount >= 0 && balance >= withdrawAmount && withdrawAmount < withdrawLimit
+				&& withdrawAmount + amountWithdrawn <= withdrawLimit) {
+			balance = balance - withdrawAmount;
+			success = true;
+			amountWithdrawn += withdrawAmount;
+		} else {
+			success = false;
+		}
+		return success;
+	}
+
+	public void setAccountNumber(int accNumber) {
+		accountNumber = accNumber;
+
+	}
+
+	public int getAccountNumber() {
+
+		return accountNumber;
+	}
+
+	public double getInitMoneyAmount() {
+		return initMoneyAmount;
+	}
+
+	public String toString() {
+
+		String bankInfo = "Your Account number is " + accountNumber + " " + "Your Balance is: " + balance + " "
+				+ "Date account created is: " + dateCreated + " " + "Withdraw limit is: " + withdrawLimit + " "
+				+ "Your account holder info is: " + accountHolder;
+
+		return bankInfo;
+	}
+}
